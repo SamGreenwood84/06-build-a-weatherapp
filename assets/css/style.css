@@ -1,0 +1,23 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 1px #fff;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  cursor: (U+2602, U+FE0F);
+}
