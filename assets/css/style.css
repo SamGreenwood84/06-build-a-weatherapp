@@ -6,13 +6,15 @@ body {
 
 .container {
   display: flex;
-  flex-direction: row;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-shadow: 1px 1px 1px #fff;
+  font-weight: bold;
+  background-image: url('img/clouds.gif'); 
+  background-size: cover;
 }
 
 form {
@@ -25,20 +27,18 @@ button {
 }
 
 #weather-wrapper {
-  max-width: 800px;
+  max-width: auto;
   margin: 20px auto;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-shadow: 1px 1px 1px #fff;
-  background-image: url('img/clouds.gif'); 
-  background-size: cover;
   text-align: center;
 }
 
 #weather-wrapper img {
-  width: 400px; 
-  height: 200px; 
+  width: 50px; 
+  height: 50px; 
 }
 
 #weather-wrapper .card-header {
@@ -75,10 +75,19 @@ button {
   margin-top: 8px;
 }
 
+.now-section {
+  text-align: center;
+  padding: 10px;
+}
+
+.now-section img {
+  width: 100%; 
+}
+
 #city-buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items:center;
 }
 
 #city-buttons button {
@@ -94,4 +103,10 @@ button {
 
 #city-buttons button:hover {
   background: linear-gradient(to right, #0056b3, #007BFF);
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
 <body>
     <section class="vh-100">
     <div class="container py-5">
   
-      <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="row d-flex justify-content-center align-items-stretch h-100">
         <div class="col-md-9 col-lg-7 col-xl-5">
 
           <div id="weather-wrapper" class="card text-white bg-image shadow-4-strong">
@@ -32,11 +32,13 @@
             <div class="card-body p-4 border-top border-bottom mb-2">
               <div class="row text-center">
                 <div class="col-2">
+                  <div class="now-section"></div>
                   <strong class="d-block mb-2">Now</strong>
                   <img id="wrapper-icon-hour-now" src="" class="" alt="" />
                   <strong class="d-block" id="wrapper-hour-now"></strong>
                 </div>
-  
+                  </div>
+                  
                 <div class="col-2">
                   <strong class="d-block mb-2" id="wrapper-time1"></strong>
                   <img id="wrapper-icon-hour1" src="" class="" alt="" />
@@ -69,16 +71,22 @@
               </div>
             </div>
           </div>
+
           <div id="city-buttons" class="mt-4">
-            <button id="btnHampton">Hampton</button>
-            <button id="btnFredericton">Fredericton</button>
-            <button id="btnMoncton">Moncton</button>
-            <button id="btnStJohns">St. John's</button>
-            <button id="btnHalifax">Halifax</button>
-            <button id="btnGreenwood">Greenwood</button>
-            <button id="btnCharlottetown">Charlottetown</button>
-            <button id="btnQuebecCity">Quebec City</button>
-        </div>
+            <div class="button-row">
+              <button id="btnHampton">Hampton</button>
+              <button id="btnFredericton">Fredericton</button>
+              <button id="btnMoncton">Moncton</button>
+              <button id="btnStJohns">St. John's</button>
+            </div>
+            <div class="button-row">
+              <button id="btnHalifax">Halifax</button>
+              <button id="btnGreenwood">Greenwood</button>
+              <button id="btnCharlottetown">Charlottetown</button>
+              <button id="btnQuebecCity">Quebec City</button>
+            </div>
+          </div>
+
             <!-- Daily forecast -->
             <div id="forecast-container" class="d-flex justify-content-between mt-4">
             <div class="card-body px-5">

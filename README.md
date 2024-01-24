@@ -28,6 +28,9 @@ THEN the site will search for those coordiantes automatically changing the site 
 Web Dev Simplified-
 [Build a Weather App With JavaScript](https://www.youtube.com/watch?v=OE7kml0pigw)
 
+Adding functional search bar-
+[How To Make A Search Bar Using HTML And CSS In 10 Just Minutes-](https://www.youtube.com/watch?v=9hnJsNIBq1g)
+
 **City Buttons Coordinates**
 
 Reference-Google
