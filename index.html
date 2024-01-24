@@ -12,7 +12,9 @@
   
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-md-9 col-lg-7 col-xl-5">
-  
+
+          <div id="weather-wrapper" class="card text-white bg-image shadow-4-strong">
+            
           <div id="wrapper-bg" class="card text-white bg-image shadow-4-strong"
             style="background-image: url('img/clouds.gif')">
             <!-- Main current data -->
@@ -26,7 +28,6 @@
                 <span class="">Humidity: <span id="wrapper-humidity"></span></span>
               </div>
             </div>
-  
             <!-- Hourly forecast -->
             <div class="card-body p-4 border-top border-bottom mb-2">
               <div class="row text-center">
@@ -67,8 +68,19 @@
                 </div>
               </div>
             </div>
-  
+          </div>
+          <div id="city-buttons" class="mt-4">
+            <button id="btnHampton">Hampton</button>
+            <button id="btnFredericton">Fredericton</button>
+            <button id="btnMoncton">Moncton</button>
+            <button id="btnStJohns">St. John's</button>
+            <button id="btnHalifax">Halifax</button>
+            <button id="btnGreenwood">Greenwood</button>
+            <button id="btnCharlottetown">Charlottetown</button>
+            <button id="btnQuebecCity">Quebec City</button>
+        </div>
             <!-- Daily forecast -->
+            <div id="forecast-container" class="d-flex justify-content-between mt-4">
             <div class="card-body px-5">
               <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -83,30 +95,25 @@
                   <span id="wrapper-forecast-temp-today"></span>
                 </div>
               </div>
-  
               <div class="row align-items-center">
                 <div class="col-lg-6">
                   <strong>Tomorrow</strong>
                 </div>
-  
                 <div class="col-lg-2 text-center">
                   <img id="wrapper-icon-tomorrow" src="" class="w-100" alt="" />
                 </div>
-  
                 <div class="col-lg-4 text-end">
                   <span id="wrapper-forecast-temp-tomorrow">28</span>
                 </div>
               </div>
-  
               <div class="row align-items-center">
                 <div class="col-lg-6">
                   <strong>Day after tomorrow</strong>
                 </div>
-  
+
                 <div class="col-lg-2 text-center">
                   <img id="wrapper-icon-dAT" src="" class="w-100" alt="" />
                 </div>
-  
                 <div class="col-lg-4 text-end">
                   <span id="wrapper-forecast-temp-dAT">28</span>
                 </div>
@@ -118,6 +125,7 @@
       </div>
   
     </div>
+  </div>
     <script src="./assets/js/script.js"></script>
   </section>
 </body>

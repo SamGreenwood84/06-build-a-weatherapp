@@ -5,6 +5,8 @@ body {
 }
 
 .container {
+  display: flex;
+  flex-direction: row;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
@@ -20,4 +22,76 @@ form {
 
 button {
   cursor: (U+2602, U+FE0F);
+}
+
+#weather-wrapper {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 1px #fff;
+  background-image: url('img/clouds.gif'); 
+  background-size: cover;
+  text-align: center;
+}
+
+#weather-wrapper img {
+  width: 400px; 
+  height: 200px; 
+}
+
+#weather-wrapper .card-header {
+  padding: 4rem 0 2rem; 
+}
+
+#weather-wrapper .card-body {
+  padding: 2rem 0;
+}
+
+#forecast-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forecast-card {
+  flex: 1;
+  max-width: 150px; 
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8); 
+  margin-right: 10px; 
+}
+
+.forecast-card img {
+  width: 50px; 
+  height: 50px; 
+}
+
+.forecast-card span {
+  display: block;
+  margin-top: 8px;
+}
+
+#city-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#city-buttons button {
+  margin: 5px;
+  background: linear-gradient(to right, #007BFF, #0056b3);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#city-buttons button:hover {
+  background: linear-gradient(to right, #0056b3, #007BFF);
 }

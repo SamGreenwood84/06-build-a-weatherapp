@@ -152,3 +152,46 @@ document.getElementById("wrapper-bg").style.backgroundImage =
 break;
 }
 });
+
+document.getElementById("btnHampton").addEventListener("click", function () {
+    fetchWeatherData(65.8322, -45.5330);
+});
+
+document.getElementById("btnFredericton").addEventListener("click", function () {
+    fetchWeatherData(45.9636, -66.6431);
+});
+
+document.getElementById("btnMoncton").addEventListener("click", function () {
+    fetchWeatherData(-46.0878, 64.7782);
+});
+
+document.getElementById("btnStjohns").addEventListener("click", function () {
+    fetchWeatherData(45.9636, 52.7453);
+});
+
+document.getElementById("btnHalifax").addEventListener("click", function () {
+    fetchWeatherData(-44.6476, 63.5728);
+});
+
+document.getElementById("btnGreenwood").addEventListener("click", function () {
+    fetchWeatherData(-44.9717, 64.9341);
+});
+
+document.getElementById("btnCharlottetown").addEventListener("click", function () {
+    fetchWeatherData(-46.2382, 63.1311);
+});
+
+document.getElementById("btnQuebeccity").addEventListener("click", function () {
+    fetchWeatherData(-46.8131, 71.2075);
+});
+
+function fetchWeatherData(latitude, longitude) {
+    // Update the API URL with the new latitude and longitude
+    let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
+
+    // Rest of your existing fetch and weather data population code
+    // ...
+
+    // Optionally, you can also update the background image based on the new weather condition
+    document.getElementById("weather-wrapper").style.backgroundImage = weatherBackgroundUrl;
+}
