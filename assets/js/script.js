@@ -53,17 +53,15 @@ document.getElementById("wrapper-time4").innerHTML = time4;
 document.getElementById("wrapper-time5").innerHTML = time5;
 
 // Weather daily data
-let tomorrowTemp = Math.round(data.daily[0].temp.day);
-let dATTemp = Math.round(data.daily[1].temp.day);
-let tomorrowMain = data.daily[0].weather[0].main;
-let dATTempMain = data.daily[1].weather[0].main;
+// Weather hourly data
+let hourlyTemps = data.hourly.map(hour => Math.round(hour.temp));
 
-document.getElementById("wrapper-forecast-temp-today").innerHTML =
-temp + "°";
-document.getElementById("wrapper-forecast-temp-tomorrow").innerHTML =
-tomorrowTemp + "°";
-document.getElementById("wrapper-forecast-temp-dAT").innerHTML =
-dATTemp + "°";
+document.getElementById("wrapper-hour-now").innerHTML = hourlyTemps[0] + "°";
+document.getElementById("wrapper-hour1").innerHTML = hourlyTemps[1] + "°";
+document.getElementById("wrapper-hour2").innerHTML = hourlyTemps[2] + "°";
+document.getElementById("wrapper-hour3").innerHTML = hourlyTemps[3] + "°";
+document.getElementById("wrapper-hour4").innerHTML = hourlyTemps[4] + "°";
+document.getElementById("wrapper-hour5").innerHTML = hourlyTemps[5] + "°";
 
 // Icons
 let iconBaseUrl = "http://openweathermap.org/img/wn/";

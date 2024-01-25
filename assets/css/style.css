@@ -4,9 +4,37 @@ body {
   padding: 0;
 }
 
+.header h1 {
+text-align: center;
+color:white;
+text-shadow: 1px 1px 1px black;
+font-size: 60px;
+font-family: "Yellowtail", sans-serif;
+background-color: #0056b3;
+}
+
+.glow {
+  padding: 2%;
+  font-size: 40px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 2s ease-in-out infinite alternate;
+  -moz-animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 20px yellowgreen, 0 0 30px yellowgreen, 0 0 40px yellowgreen, 0 0 50px yellowgreen, 0 0 60px yellowgreen;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px yellow, 0 0 30px yellow, 0 0 40px yellow, 0 0 50px yellow, 0 0 60px yellow, 0 0 70px yellow;
+  }
+}
+
 .container {
-  display: flex;
-  max-width: 800px;
+  max-width: 580px;
+  max-height:fit-content;
   margin: 20px auto;
   padding: 20px;
   border-radius: 5px;
@@ -14,16 +42,13 @@ body {
   text-shadow: 1px 1px 1px #fff;
   font-weight: bold;
   background-image: url('img/clouds.gif'); 
-  background-size: cover;
+  background-size: 100%;
+  background-blend-mode: normal;
 }
 
 form {
   display: flex;
   gap: 10px;
-}
-
-button {
-  cursor: (U+2602, U+FE0F);
 }
 
 #weather-wrapper {
@@ -52,6 +77,7 @@ button {
 #forecast-container {
   display: flex;
   justify-content: space-between;
+  justify-content: space-around;
 }
 
 .forecast-card {
@@ -77,7 +103,6 @@ button {
 
 .now-section {
   text-align: center;
-  padding: 10px;
 }
 
 .now-section img {
@@ -109,4 +134,8 @@ button {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.card-header {
+  padding: 10px;
 }

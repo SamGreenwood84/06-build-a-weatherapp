@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yellowtail">
     <title>Weather Dashboard</title>
 </head>
 <body>
     <section class="vh-100">
     <div class="container py-5">
-  
+      <header class = "header">
+        <h1 class="glow">Maritime Weather</h1>
+        </header>
       <div class="row d-flex justify-content-center align-items-stretch h-100">
-        <div class="col-md-9 col-lg-7 col-xl-5">
+        <div class="col-md-9 col-lg-7 col-xl-5 glow">
 
           <div id="weather-wrapper" class="card text-white bg-image shadow-4-strong">
-            
+            <div id="searchbar">
+              </div>
           <div id="wrapper-bg" class="card text-white bg-image shadow-4-strong"
             style="background-image: url('img/clouds.gif')">
             <!-- Main current data -->
@@ -38,7 +42,7 @@
                   <strong class="d-block" id="wrapper-hour-now"></strong>
                 </div>
                   </div>
-                  
+
                 <div class="col-2">
                   <strong class="d-block mb-2" id="wrapper-time1"></strong>
                   <img id="wrapper-icon-hour1" src="" class="" alt="" />
@@ -70,7 +74,6 @@
                 </div>
               </div>
             </div>
-          </div>
 
           <div id="city-buttons" class="mt-4">
             <div class="button-row">
@@ -86,7 +89,7 @@
               <button id="btnQuebecCity">Quebec City</button>
             </div>
           </div>
-
+        </div>
             <!-- Daily forecast -->
             <div id="forecast-container" class="d-flex justify-content-between mt-4">
             <div class="card-body px-5">
