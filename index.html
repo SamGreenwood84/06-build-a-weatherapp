@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yellowtail">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Niconne">
     <title>Weather Dashboard</title>
 </head>
 <body>
@@ -17,8 +17,6 @@
         <div class="col-md-9 col-lg-7 col-xl-5 glow">
 
           <div id="weather-wrapper" class="card text-white bg-image shadow-4-strong">
-            <div id="searchbar">
-              </div>
           <div id="wrapper-bg" class="card text-white bg-image shadow-4-strong"
             style="background-image: url('img/clouds.gif')">
             <!-- Main current data -->
@@ -31,7 +29,7 @@
                 <span class="mx-2">|</span>
                 <span class="">Humidity: <span id="wrapper-humidity"></span></span>
               </div>
-            </div>
+            
             <!-- Hourly forecast -->
             <div class="card-body p-4 border-top border-bottom mb-2">
               <div class="row text-center">
@@ -74,7 +72,10 @@
                 </div>
               </div>
             </div>
-
+              <div id="search-container">
+                <input type="text" id="search-box" placeholder="Search...">
+                <button id="search-button">Search</button>
+              </div>
           <div id="city-buttons" class="mt-4">
             <div class="button-row">
               <button id="btnHampton">Hampton</button>

@@ -31,6 +31,8 @@ Web Dev Simplified-
 Adding functional search bar-
 [How To Make A Search Bar Using HTML And CSS In 10 Just Minutes-](https://www.youtube.com/watch?v=9hnJsNIBq1g)
 
+Google Fonts: [Niconne](https://fonts.google.com/specimen/Niconne?classification=Handwriting)
+
 **City Buttons Coordinates**
 
 Reference-Google

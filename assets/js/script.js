@@ -193,3 +193,16 @@ function fetchWeatherData(latitude, longitude) {
     // Optionally, you can also update the background image based on the new weather condition
     document.getElementById("weather-wrapper").style.backgroundImage = weatherBackgroundUrl;
 }
+
+//Function to execute search
+function executeSearch() {
+    const query = document.getElementById('search-box').value;
+    window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+  }
+
+  document.getElementById('search-button').addEventListener('click', executeSearch);
+  document.getElementById('search-box').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      executeSearch();
+    }
+  });
