@@ -39,18 +39,27 @@ document.getElementById("wrapper-hour4").innerHTML = hour4 + "°";
 document.getElementById("wrapper-hour5").innerHTML = hour5 + "°";
 
 // Time
-let timeNow = new Date().getHours();
-let time1 = timeNow + 1;
+let timeNow = new Date();
+let hoursNow = timeNow.getHours();
+let amPm = hoursNow >= 12 ? 'PM' : 'AM';
+let formattedHoursNow = hoursNow % 12 || 12; // Convert to 12-hour format
+
+let time1 = formattedHoursNow + 1;
 let time2 = time1 + 1;
 let time3 = time2 + 1;
 let time4 = time3 + 1;
 let time5 = time4 + 1;
 
-document.getElementById("wrapper-time1").innerHTML = time1;
-document.getElementById("wrapper-time2").innerHTML = time2;
-document.getElementById("wrapper-time3").innerHTML = time3;
-document.getElementById("wrapper-time4").innerHTML = time4;
-document.getElementById("wrapper-time5").innerHTML = time5;
+document.getElementById("wrapper-time1").innerHTML = formatTime(time1) + ' ' + amPm;
+document.getElementById("wrapper-time2").innerHTML = formatTime(time2) + ' ' + amPm;
+document.getElementById("wrapper-time3").innerHTML = formatTime(time3) + ' ' + amPm;
+document.getElementById("wrapper-time4").innerHTML = formatTime(time4) + ' ' + amPm;
+document.getElementById("wrapper-time5").innerHTML = formatTime(time5) + ' ' + amPm;
+
+// Helper function to format time without leading zero
+function formatTime(time) {
+    return time >= 10 ? time : ' ' + time; // Add a space for single-digit hours
+}
 
 // Weather daily data
 // Weather hourly data
@@ -179,19 +188,18 @@ document.getElementById("btnCharlottetown").addEventListener("click", function (
     fetchWeatherData(-46.2382, 63.1311);
 });
 
-document.getElementById("btnQuebeccity").addEventListener("click", function () {
-    fetchWeatherData(-46.8131, 71.2075);
-});
-
-function fetchWeatherData(latitude, longitude) {
+function fetchWeatherData(latitude, longitude, city) {
     // Update the API URL with the new latitude and longitude
     let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
 
     // Rest of your existing fetch and weather data population code
     // ...
 
-    // Optionally, you can also update the background image based on the new weather condition
-    document.getElementById("weather-wrapper").style.backgroundImage = weatherBackgroundUrl;
+    // Update the search box with the city name
+    document.getElementById('search-box').value = city;
+
+    // Trigger the search button click
+    document.getElementById('search-button').click();
 }
 
 //Function to execute search
@@ -206,3 +214,31 @@ function executeSearch() {
       executeSearch();
     }
   });
+
+  function validateCity(city) {
+    // List of cities in the Maritime provinces
+    const maritimeCities = [
+        // Cities in New Brunswick
+        "Saint John", "Fredericton", "Moncton", "Bathurst", "Miramichi", "Edmundston", "Campbellton", "Woodstock", "Sussex", "Saint Andrews", "Hampton", "Oromocto", "St. Stephen",
+
+        // Cities in Nova Scotia
+        "Halifax", "Dartmouth", "Sydney", "Truro", "New Glasgow", "Glace Bay", "Kentville", "Wolfville", "Berwick", "Windsor", "Middleton", "Bridgetown", "Liverpool", "Antigonish", "Port Hawkesbury",
+
+        // Cities in Prince Edward Island
+        "Charlottetown", "Summerside", "Tignish", "O'Leary", "Tyne Valley", "Ellerslie", "Alberton", "St. Peters",
+
+        // Cities in Newfoundland and Labrador
+        "St. John's", "Mount Pearl", "Corner Brook", "Grand Falls-Windsor", "Gander", "Labrador City", "Happy Valley-Goose Bay", "Clarenville", "Bay Roberts", "Deer Lake", "Bonavista", "Twillingate", "Lewisporte", "Burgeo", "Port aux Basques"
+    ];
+
+    // Convert the entered city to title case for case-insensitive comparison
+    const formattedCity = city.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+
+    // Check if the formatted city is in the list
+    if (maritimeCities.includes(formattedCity)) {
+        return true; // City is valid
+    } else {
+        alert("You must enter a city from NL, PEI, NS, or NB. Please ensure correct spelling!");
+        return false; // City is not valid
+    }
+}

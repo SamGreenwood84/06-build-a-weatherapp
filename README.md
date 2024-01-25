@@ -9,7 +9,7 @@ As someone who often travels for work the USER needs to be able to know how to p
 
 User Story
 
-As someone who often travels for work the USER needs to be able to know how to plan and pack appropriately according to the weather forecast
+As someone who often travels across the Maritimes for work the USER needs to be able to know how to plan and pack appropriately according to the weather forecast
 
 WHEN the USER opens the site a default city will display with including date, time, and temperature
 
