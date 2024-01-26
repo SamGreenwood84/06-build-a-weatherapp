@@ -10,12 +10,15 @@ color:white;
 text-shadow: 1px 1px 1px black;
 font-size: 60px;
 font-family: "Niconne", sans-serif;
-background-color: #0056b3;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+max-width:fit-content;
+margin: 0 auto;
+padding: 10px;
 }
 
 .glow {
-  padding: 2%;
-  font-size: 40px;
+  font-size: 20px;
   color: #fff;
   text-align: center;
   -webkit-animation: glow 2s ease-in-out infinite alternate;
@@ -33,7 +36,6 @@ background-color: #0056b3;
 }
 
 .container {
-  max-width: 580px;
   max-height:fit-content;
   margin: 20px auto;
   padding: 20px;
@@ -41,9 +43,9 @@ background-color: #0056b3;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-shadow: 1px 1px 1px #fff;
   font-weight: bold;
-  background-image: url('img/clouds.gif'); 
   background-size: 100%;
   background-blend-mode: normal;
+  background-image: url(../images/skybackground.jpg);
 }
 
 form {
@@ -51,14 +53,26 @@ form {
   gap: 10px;
 }
 
+#wrapper-name {
+  position: relative;
+  top: -20px;
+}
+
 #weather-wrapper {
   max-width: auto;
   margin: 20px auto;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-shadow: 1px 1px 1px #fff;
   text-align: center;
+  max-width: 580px;
+}
+
+#wrapper-bg {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 #weather-wrapper img {
@@ -76,14 +90,15 @@ form {
 
 #forecast-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  justify-content: space-around;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .forecast-card {
   flex: 1;
-  max-width: 150px; 
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -140,10 +155,12 @@ form {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease;
+  font-weight: bold;
+  text-shadow: 0.5px 0.5px 0.5px #fff;
 }
 
 #city-buttons button:hover {
-  background: linear-gradient(to right, #0056b3, #007BFF);
+  background: linear-gradient(to left, #0056b3, #007BFF);
 }
 
 .button-row {
@@ -157,5 +174,10 @@ form {
 }
 
 .card-body {
+ display: flex;
+ flex-direction: row;
  justify-content: space-between;
+ font-size: 20px;
+ border-radius: 5px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

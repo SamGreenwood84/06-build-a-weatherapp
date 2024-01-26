@@ -18,7 +18,7 @@
 
           <div id="weather-wrapper" class="card text-white bg-image shadow-4-strong">
           <div id="wrapper-bg" class="card text-white bg-image shadow-4-strong"
-            style="background-image: url('img/clouds.gif')">
+            style="background-image: url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')">
             <!-- Main current data -->
             <div class="card-header p-4 border-0">
               <div class="text-center mb-3">
@@ -29,7 +29,11 @@
                 <span class="mx-2">|</span>
                 <span class="">Humidity: <span id="wrapper-humidity"></span></span>
               </div>
-            
+              <div id="datetime-container">
+                <p id="date-time"></p>
+              </div>
+            </div>
+          </div>
             <!-- Hourly forecast -->
             <div class="card-body p-4 border-top border-bottom mb-2">
               <div class="row text-center">
@@ -71,9 +75,9 @@
                   <strong class="d-block" id="wrapper-hour5"></strong>
                 </div>
               </div>
-            </div>
+            
               <div id="search-container">
-                <input type="text" id="search-box" placeholder="Search...">
+                <input type="text" id="search-box" placeholder="Enter a Maritime City...">
                 <button id="search-button">Search</button>
               </div>
           <div id="city-buttons" class="mt-4">
@@ -81,7 +85,7 @@
               <button id="btnHampton">Hampton</button>
               <button id="btnFredericton">Fredericton</button>
               <button id="btnMoncton">Moncton</button>
-              <button id="btnStJohns">St. John's</button>
+              <button id="btnStJohns">St.Johns</button>
             </div>
             <div class="button-row">
               <button id="btnHalifax">Halifax</button>
@@ -89,7 +93,6 @@
               <button id="btnCharlottetown">Charlottetown</button>
             </div>
           </div>
-        </div>
             <!-- Daily forecast -->
             <div id="forecast-container" class="d-flex justify-content-between mt-4 glow">
             <div class="card-body px-5">
@@ -114,7 +117,7 @@
                   <img id="wrapper-icon-tomorrow" src="" class="w-100" alt="" />
                 </div>
                 <div class="col-lg-4 text-end">
-                  <span id="wrapper-forecast-temp-tomorrow">28</span>
+                  <span id="wrapper-forecast-temp-tomorrow"></span>
                 </div>
               </div>
               <div class="row align-items-center">
@@ -126,7 +129,7 @@
                   <img id="wrapper-icon-dAT" src="" class="w-100" alt="" />
                 </div>
                 <div class="col-lg-4 text-end">
-                  <span id="wrapper-forecast-temp-dAT">28</span>
+                  <span id="wrapper-forecast-temp-dAT"></span>
                 </div>
               </div>
             </div>

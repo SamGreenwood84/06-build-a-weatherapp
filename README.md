@@ -25,6 +25,9 @@ THEN the site will search for those coordiantes automatically changing the site 
 
 ![Mock-up](assets/images/06-server-side-apis-homework-demo.png)
 
+Pexels-[Blue Sky Background](www.pexels.com/search/blue%20sky/)
+![Alt text](<assets/images/sky background.jpg>)
+
 Web Dev Simplified-
 [Build a Weather App With JavaScript](https://www.youtube.com/watch?v=OE7kml0pigw)
 
