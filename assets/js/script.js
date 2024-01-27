@@ -202,33 +202,39 @@ function fetchWeatherData(latitude, longitude, city) {
   document.getElementById("search-button").click();
 }
 
-//Function to execute search
 function executeSearch() {
-  const city = document.getElementById("search-box").value;
-
-  // Validate the entered city
-  if (!validateCity(city)) {
-    return; // Do nothing if the city is not valid
-  }
-
-  // Get the coordinates for the entered city
-  const { latitude, longitude } = getCityCoordinates(city);
-
-  // Update the API URL with the new latitude and longitude
-  let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
-}
-
-document
-  .getElementById("search-button")
-  .addEventListener("click", executeSearch);
-document
-  .getElementById("search-box")
-  .addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      executeSearch();
+    const city = document.getElementById("search-box").value;
+  
+    // Validate the entered city
+    if (!validateCity(city)) {
+      return; // Do nothing if the city is not valid
     }
-  });
-
+  
+    // Get the coordinates for the entered city
+    const { latitude, longitude } = getCityCoordinates(city);
+  
+    // Update the API URL with the new latitude and longitude
+    let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
+  
+    // Fetch weather data for the specified city
+    fetch(file)
+      .then((response) => response.json())
+      .then((data) => {
+        // Update weather data based on the chosen city
+        let main = data.current.weather[0].main;
+        let description = data.current.weather[0].description;
+        let temp = Math.round(data.current.temp);
+        let pressure = data.current.pressure;
+        let humidity = data.current.humidity;
+  
+        // Update the HTML elements with the new weather data
+        document.getElementById("wrapper-description").innerHTML = description;
+        document.getElementById("wrapper-temp").innerHTML = temp + "°C";
+        document.getElementById("wrapper-pressure").innerHTML = pressure;
+        document.getElementById("wrapper-humidity").innerHTML = humidity;
+        document.getElementById("wrapper-name").innerHTML = city;
+      })
+    }
 function validateCity(city) {
   const maritimeCities = {
     "Saint John": [45.2733, 66.0633],

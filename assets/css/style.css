@@ -80,6 +80,10 @@ form {
   height: 50px; 
 }
 
+#wrapper-temp {
+  font-size: 50px;
+}
+
 #weather-wrapper .card-header {
   padding: 4rem 0 2rem; 
 }
