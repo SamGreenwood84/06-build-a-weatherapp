@@ -38,36 +38,41 @@ fetch(file)
     document.getElementById("wrapper-hour4").innerHTML = hour4 + "°";
     document.getElementById("wrapper-hour5").innerHTML = hour5 + "°";
 
-    // Time
+    // Time to am/pm 12 hour clock
     let timeNow = new Date();
     let hoursNow = timeNow.getHours();
     let amPm = hoursNow >= 12 ? "PM" : "AM";
-    let formattedHoursNow = hoursNow % 12 || 12; // Convert to 12-hour format
+    let formattedHoursNow = hoursNow % 12 || 12; 
 
     let time1 = formattedHoursNow + 1;
-    let time2 = time1 + 1;
-    let time3 = time2 + 1;
-    let time4 = time3 + 1;
-    let time5 = time4 + 1;
+    let time2 = time1 + 1 % 12 || 12;
+    let time3 = time2 + 1 % 12 || 12;
+    let time4 = time3 + 1 % 12 || 12;
+    let time5 = time4 + 1 % 12 || 12;
+
+    let amPm1 = time1 >= 12 ? "PM" : "AM";
+    let amPm2 = time2 >= 12 ? "PM" : "AM";
+    let amPm3 = time3 >= 12 ? "PM" : "AM";
+    let amPm4 = time4 >= 12 ? "PM" : "AM";
+    let amPm5 = time5 >= 12 ? "PM" : "AM";
 
     document.getElementById("wrapper-time1").innerHTML =
-      formatTime(time1) + " " + amPm;
+      formatTime(time1) + " " + amPm1;
     document.getElementById("wrapper-time2").innerHTML =
-      formatTime(time2) + " " + amPm;
+      formatTime(time2) + " " + amPm2;
     document.getElementById("wrapper-time3").innerHTML =
-      formatTime(time3) + " " + amPm;
+      formatTime(time3) + " " + amPm3;
     document.getElementById("wrapper-time4").innerHTML =
-      formatTime(time4) + " " + amPm;
+      formatTime(time4) + " " + amPm4;
     document.getElementById("wrapper-time5").innerHTML =
-      formatTime(time5) + " " + amPm;
+      formatTime(time5) + " " + amPm5;
 
     // Helper function to format time without leading zero
     function formatTime(time) {
-      return time >= 10 ? time : " " + time; // Add a space for single-digit hours
+      return time >= 10 ? time : "0" + time; 
     }
 
-    // Weather daily data
-    // Weather hourly data
+    // Weather daily data & Weather hourly data
     let hourlyTemps = data.hourly.map((hour) => Math.round(hour.temp));
 
     document.getElementById("wrapper-hour-now").innerHTML =
@@ -79,7 +84,7 @@ fetch(file)
     document.getElementById("wrapper-hour5").innerHTML = hourlyTemps[5] + "°";
 
     // Icons
-    let iconBaseUrl = "http://openweathermap.org/img/wn/";
+    let iconBaseUrl = "https://openweathermap.org/img/wn/";
     let iconFormat = ".webp";
 
     // Today
@@ -195,19 +200,15 @@ function fetchWeatherData(latitude, longitude, city) {
   // Update the API URL with the new latitude and longitude
   let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
 
-  // Update the search box with the city name
+  // Update the search box with the city name 
   document.getElementById("search-box").value = city;
-
-  // Trigger the search button click
-  document.getElementById("search-button").click();
 }
 
 function executeSearch() {
     const city = document.getElementById("search-box").value;
   
-    // Validate the entered city
     if (!validateCity(city)) {
-      return; // Do nothing if the city is not valid
+      return;
     }
   
     // Get the coordinates for the entered city
@@ -323,13 +324,8 @@ function updateWeatherForCity(latitude, longitude, city) {
       document.getElementById("wrapper-description").innerHTML = description;
       document.getElementById("wrapper-temp").innerHTML = temp + "°C";
       document.getElementById("wrapper-pressure").innerHTML = pressure;
-      document.getElementById("wrapper-humidity").innerHTML = humidity + "°C";
+      document.getElementById("wrapper-humidity").innerHTML = humidity;
       document.getElementById("wrapper-name").innerHTML = city;
-
-      // Rest of your existing code to update hourly data, icons, backgrounds, etc.
-      // ...
-
-      // You can also add code to update other elements based on the chosen city
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);

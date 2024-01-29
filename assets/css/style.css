@@ -9,7 +9,7 @@ text-align: center;
 color:white;
 text-shadow: 1px 1px 1px black;
 font-size: 60px;
-font-family: "Niconne", sans-serif;
+font-family: "Sacramento";
 border-radius: 5px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 max-width:fit-content;
@@ -46,6 +46,9 @@ padding: 10px;
   background-size: 100%;
   background-blend-mode: normal;
   background-image: url(../images/skybackground.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 form {
