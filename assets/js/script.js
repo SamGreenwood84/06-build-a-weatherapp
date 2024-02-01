@@ -41,20 +41,21 @@ fetch(file)
     // Time to am/pm 12 hour clock
     let timeNow = new Date();
     let hoursNow = timeNow.getHours();
-    let amPm = hoursNow >= 12 ? "PM" : "AM";
-    let formattedHoursNow = hoursNow % 12 || 12; 
+    let amPm = hoursNow >= 12 ? "AM" : "PM";
+    let formattedHoursNow = hoursNow % 12 || 12;
 
     let time1 = formattedHoursNow + 1;
-    let time2 = time1 + 1 % 12 || 12;
-    let time3 = time2 + 1 % 12 || 12;
-    let time4 = time3 + 1 % 12 || 12;
-    let time5 = time4 + 1 % 12 || 12;
+    let time2 = time1 + (1 % 12) || 12;
+    let time3 = time2 + (1 % 12) || 12;
+    let time4 = time3 + (1 % 12) || 12;
+    let time5 = time4 + (1 % 12) || 12;
 
-    let amPm1 = time1 >= 12 ? "PM" : "AM";
-    let amPm2 = time2 >= 12 ? "PM" : "AM";
-    let amPm3 = time3 >= 12 ? "PM" : "AM";
-    let amPm4 = time4 >= 12 ? "PM" : "AM";
-    let amPm5 = time5 >= 12 ? "PM" : "AM";
+    // Adjust AM/PM for the next hours
+    let amPm1 = time1 >= 12 ? "AM" : "PM";
+    let amPm2 = time2 >= 12 ? "AM" : "PM";
+    let amPm3 = time3 >= 12 ? "AM" : "PM";
+    let amPm4 = time4 >= 12 ? "AM" : "PM";
+    let amPm5 = time5 >= 12 ? "AM" : "PM";
 
     document.getElementById("wrapper-time1").innerHTML =
       formatTime(time1) + " " + amPm1;
@@ -69,14 +70,13 @@ fetch(file)
 
     // Helper function to format time without leading zero
     function formatTime(time) {
-      return time >= 10 ? time : "0" + time; 
+      return time >= 10 ? time : "0" + time;
     }
 
     // Weather daily data & Weather hourly data
     let hourlyTemps = data.hourly.map((hour) => Math.round(hour.temp));
 
-    document.getElementById("wrapper-hour-now").innerHTML =
-      hourlyTemps[0] + "°";
+    document.getElementById("wrapper-hour-now").innerHTML = hourlyTemps[0] + "°";
     document.getElementById("wrapper-hour1").innerHTML = hourlyTemps[1] + "°";
     document.getElementById("wrapper-hour2").innerHTML = hourlyTemps[2] + "°";
     document.getElementById("wrapper-hour3").innerHTML = hourlyTemps[3] + "°";
@@ -135,6 +135,7 @@ fetch(file)
     document.getElementById("wrapper-icon-hour5").src = iconFullyUrlHour5;
 
     // Backgrounds
+
     switch (main) {
       case "Snow":
         document.getElementById("wrapper-bg").style.backgroundImage =
@@ -165,151 +166,32 @@ fetch(file)
           "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
         break;
     }
+  })
+  .catch((error) => {
+    console.error("Error fetching weather data:", error);
   });
 
-document.getElementById("btnHampton").addEventListener("click", function () {
-  fetchWeatherData(65.8322, 45.533, "Hampton");
-});
+  // Function to update background image
+function updateBackgroundImage(imageUrl) {
+  document.getElementById("wrapper-bg").style.backgroundImage = `url('${imageUrl}')`;
+}
 
-document.getElementById("btnFredericton").addEventListener("click", function () {
-    fetchWeatherData(45.9636, 66.6431, "Fredericton");
-  });
-
-document.getElementById("btnMoncton").addEventListener("click", function () {
-  fetchWeatherData(46.0878, 64.7782, "Moncton");
-});
-
-document.getElementById("btnStJohns").addEventListener("click", function () {
-  fetchWeatherData(45.9636, 52.7453, "St.Johns");
-});
-
-document.getElementById("btnHalifax").addEventListener("click", function () {
-  fetchWeatherData(44.6476, 63.5728, "Halifax");
-});
-
-document.getElementById("btnGreenwood").addEventListener("click", function () {
-  fetchWeatherData(44.9717, 64.9341, "Greenwood");
-});
-
-document
-  .getElementById("btnCharlottetown").addEventListener("click", function () {
-    fetchWeatherData(46.2382, 63.1311, "Charlottetown");
-});
+// Define the city coordinates
+const cityCoordinates = {
+  "Hampton": { latitude: 45.527, longitude: 65.8418 },
+  "Fredericton": { latitude: 45.9636, longitude: 66.6431 },
+  "Moncton": { latitude: 46.0878, longitude: 64.7782 },
+  "St.Johns": { latitude: 47.5675, longitude: 52.7076 },
+  "Halifax": { latitude: 44.6488, longitude: 63.5752 },
+  "Greenwood": { latitude: 44.9717, longitude: 64.9341 },
+  "Charlottetown": { latitude: 46.2382, longitude: 63.1311 },
+};
 
 function fetchWeatherData(latitude, longitude, city) {
   // Update the API URL with the new latitude and longitude
   let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
 
-  // Update the search box with the city name 
-  document.getElementById("search-box").value = city;
-}
-
-function executeSearch() {
-    const city = document.getElementById("search-box").value;
-  
-    if (!validateCity(city)) {
-      return;
-    }
-  
-    // Get the coordinates for the entered city
-    const { latitude, longitude } = getCityCoordinates(city);
-  
-    // Update the API URL with the new latitude and longitude
-    let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
-  
-    // Fetch weather data for the specified city
-    fetch(file)
-      .then((response) => response.json())
-      .then((data) => {
-        // Update weather data based on the chosen city
-        let main = data.current.weather[0].main;
-        let description = data.current.weather[0].description;
-        let temp = Math.round(data.current.temp);
-        let pressure = data.current.pressure;
-        let humidity = data.current.humidity;
-  
-        // Update the HTML elements with the new weather data
-        document.getElementById("wrapper-description").innerHTML = description;
-        document.getElementById("wrapper-temp").innerHTML = temp + "°C";
-        document.getElementById("wrapper-pressure").innerHTML = pressure;
-        document.getElementById("wrapper-humidity").innerHTML = humidity;
-        document.getElementById("wrapper-name").innerHTML = city;
-      })
-    }
-function validateCity(city) {
-  const maritimeCities = {
-    "Saint John": [45.2733, 66.0633],
-    "Fredericton": [45.9636, 66.6431],
-    "Moncton": [46.0878, 64.7782],
-    "Bathurst": [47.6194, 65.6514],
-    "Miramichi": [47.0297, 65.4819],
-    "Edmundston": [47.3552, 68.3324],
-    "Campbellton": [48.0075, 66.6727],
-    "Woodstock": [46.1554, 67.5969],
-    "Sussex": [45.7188, 65.5157],
-    "Saint Andrews": [45.0731, 67.053],
-    "Hampton": [45.527, 65.8418],
-    "Oromocto": [45.8266, 66.4816],
-    "St.Stephen": [45.1947, 67.2755],
-    "Halifax": [44.6488, 63.5752],
-    "Dartmouth": [44.6714, 63.5772],
-    "Sydney": [46.1366, 60.1941],
-    "Truro": [45.3657, 63.2869],
-    "New Glasgow": [45.5864, 62.647],
-    "Glace Bay": [46.1968, 59.9566],
-    "Berwick": [45.0518, 64.7373],
-    "Windsor": [44.99, 64.1317],
-    "Greenwood": [44.9717, 64.9341],
-    "Middleton": [44.942, 65.0607],
-    "Bridgetown": [44.9784, 65.2546],
-    "Liverpool": [44.0341, 64.7169],
-    "Antigonish": [45.624, 62.001],
-    "Port Hawkesbury": [45.6169, 61.3584],
-    "Charlottetown": [46.2382, 63.1311],
-    "Summerside": [46.3932, 63.7874],
-    "Tignish": [46.9501, 64.0063],
-    "O'Leary": [46.7101, 64.2304],
-    "Tyne Valley": [46.5954, 63.9331],
-    "Ellerslie": [46.6149, 63.8829],
-    "Alberton": [46.8149, 64.0654],
-    "St.Peters": [46.4546, 62.5797],
-    "St.Johns": [47.5675, 52.7076],
-    "Mount Pearl": [47.5169, 52.8066],
-    "Corner Brook": [48.9501, 57.9517],
-    "Grand Falls-Windsor": [48.9393, 55.6679],
-    "Gander": [48.9553, 54.6087],
-    "Labrador City": [52.9451, 66.917],
-    "Happy Valley-Goose Bay": [53.3031, 60.3267],
-    "Clarenville": [48.1805, 53.9674],
-    "Bay Roberts": [47.5896, 53.2644],
-    "Deer Lake": [49.17, 57.4267],
-    "Bonavista": [48.6499, 53.1119],
-    "Twillingate": [49.6475, 54.7698],
-    "Lewisporte": [49.2494, 55.048],
-    "Burgeo": [47.6129, 57.6159],
-    "Port aux Basques": [47.5704, 59.1367],
-  };
-
-  // Convert the entered city to title case for case-insensitive comparison
-  const formattedCity = city
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-
-  // Check if the formatted city is in the list
-  if (maritimeCities.hasOwnProperty(formattedCity)) {
-    return true; // City is valid
-  } else {
-    alert(
-      "You must enter a city from NL, PEI, NS, or NB. Please ensure correct spelling!"
-    );
-    return false; // City is not valid
-  }
-}
-
-function updateWeatherForCity(latitude, longitude, city) {
-  // API call for the specified city
-  let file = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=dbb76c5d98d5dbafcb94441c6a10236e`;
-
+  // Fetch weather data for the specified city
   fetch(file)
     .then((response) => response.json())
     .then((data) => {
@@ -326,35 +208,74 @@ function updateWeatherForCity(latitude, longitude, city) {
       document.getElementById("wrapper-pressure").innerHTML = pressure;
       document.getElementById("wrapper-humidity").innerHTML = humidity;
       document.getElementById("wrapper-name").innerHTML = city;
+
+      // Backgrounds based on weather condition code (icon)
+      let iconCode = data.current.weather[0].icon;
+      updateBackgroundImage(getBackgroundImageURL(iconCode));
+
+      // Update background on the main section based on current weather
+      updateMainBackground(main);
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
     });
 }
 
-function displayCurrentDateTime() {
-  // Create a new Date object to get the current date and time
-  const currentDate = new Date();
-  const options = {
-    hour: "numeric",
-    minute: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-    timeZoneName: "short",
+document.getElementById("btnHampton").addEventListener("click", function () {
+  fetchWeatherData(65.8322, 45.533, "Hampton");
+});
+
+document
+  .getElementById("btnFredericton").addEventListener("click", function () {
+    fetchWeatherData(45.9636, 66.6431, "Fredericton");
+  });
+
+document.getElementById("btnMoncton").addEventListener("click", function () {
+  fetchWeatherData(46.0878, 64.7782, "Moncton");
+});
+
+document.getElementById("btnStJohns").addEventListener("click", function () {
+  fetchWeatherData(47.5675, 52.7076, "St.Johns");
+});
+
+document.getElementById("btnHalifax").addEventListener("click", function () {
+  fetchWeatherData(44.6488, 63.5752, "Halifax");
+});
+
+document.getElementById("btnGreenwood").addEventListener("click", function () {
+  fetchWeatherData(44.9717, 64.9341, "Greenwood");
+});
+
+document
+  .getElementById("btnCharlottetown").addEventListener("click", function () {
+    fetchWeatherData(46.2382, 63.1311, "Charlottetown");
+  });
+
+  function displayCurrentDateTime() {
+    // Create a new Date object to get the current date and time
+    const currentDate = new Date();
+  
+    // Get the day of the week
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayOfWeek = daysOfWeek[currentDate.getDay()];
+  
+    // Format date, hours, and minutes
+    const formattedDate = currentDate.toLocaleDateString();
+    let hours = currentDate.getHours();
+    const amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    const minutes = currentDate.getMinutes();
+    const formattedTime = `${hours}:${minutes} ${amPm}`;
+  
+    // Display the formatted date, day of the week, and time in a specific container
+    const dateTimeContainer = document.getElementById('datetime-container');
+    const dateTimeElement = document.getElementById('date-time');
+  
+    dateTimeElement.textContent = `${dayOfWeek}, ${formattedDate} ${formattedTime}`;
+  }
+  
+  // Call the function when the page is loaded
+  window.onload = function() {
+    displayCurrentDateTime();
+    setInterval(displayCurrentDateTime, 60000); // Update every 1 minute
   };
-
-  // Format the date and time as a string
-  const formattedDateTime = currentDate.toLocaleString("en-US", options);
-
-  const dateTimeContainer = document.getElementById("datetime-container");
-  const dateTimeElement = document.getElementById("date-time");
-
-  dateTimeElement.textContent = `${formattedDateTime}`;
-}
-
-// Call the function when the page is loaded
-window.onload = function () {
-  displayCurrentDateTime();
-  setInterval(displayCurrentDateTime, 1000); // Update every 1000 milliseconds (1 second)
-};
