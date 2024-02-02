@@ -170,8 +170,7 @@ fetch(file)
   .catch((error) => {
     console.error("Error fetching weather data:", error);
   });
-
-  // Function to update background image
+// Function to update background image
 function updateBackgroundImage(imageUrl) {
   document.getElementById("wrapper-bg").style.backgroundImage = `url('${imageUrl}')`;
 }
@@ -221,14 +220,62 @@ function fetchWeatherData(latitude, longitude, city) {
     });
 }
 
+// Function to get background image URL based on weather condition code
+function getBackgroundImageURL(iconCode) {
+  const iconBaseUrl = "https://openweathermap.org/img/wn/";
+  const iconFormat = ".webp";
+  return `${iconBaseUrl}${iconCode}${iconFormat}`;
+}
+
+// Function to update background image
+function updateBackgroundImage(imageUrl) {
+  document.getElementById("wrapper-bg").style.backgroundImage = `url('${imageUrl}')`;
+}
+
+// Function to update main background based on weather condition
+function updateMainBackground(main) {
+  // Backgrounds
+  switch (main) {
+    case "Snow":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
+      break;
+    case "Clouds":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+      break;
+    case "Fog":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
+      break;
+    case "Rain":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
+      break;
+    case "Clear":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+      break;
+    case "Thunderstorm":
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
+      break;
+    default:
+      document.getElementById("wrapper-bg").style.backgroundImage =
+        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+      break;
+  }
+}
+
+
+// Event listeners for city buttons
 document.getElementById("btnHampton").addEventListener("click", function () {
-  fetchWeatherData(65.8322, 45.533, "Hampton");
+  fetchWeatherData(45.527, 65.8418, "Hampton");
 });
 
-document
-  .getElementById("btnFredericton").addEventListener("click", function () {
-    fetchWeatherData(45.9636, 66.6431, "Fredericton");
-  });
+document.getElementById("btnFredericton").addEventListener("click", function () {
+  fetchWeatherData(45.9636, 66.6431, "Fredericton");
+});
 
 document.getElementById("btnMoncton").addEventListener("click", function () {
   fetchWeatherData(46.0878, 64.7782, "Moncton");
@@ -246,10 +293,9 @@ document.getElementById("btnGreenwood").addEventListener("click", function () {
   fetchWeatherData(44.9717, 64.9341, "Greenwood");
 });
 
-document
-  .getElementById("btnCharlottetown").addEventListener("click", function () {
-    fetchWeatherData(46.2382, 63.1311, "Charlottetown");
-  });
+document.getElementById("btnCharlottetown").addEventListener("click", function () {
+  fetchWeatherData(46.2382, 63.1311, "Charlottetown");
+});
 
   function displayCurrentDateTime() {
     // Create a new Date object to get the current date and time
