@@ -1,42 +1,41 @@
 # 06-Challenge-Weather-Dashboard
-**Server-Side APIs Challenge: Weather Dashboard**
 
-***User Story***
+## Server-Side APIs Challenge: Weather Dashboard
 
-As someone who often travels for work the USER needs to be able to know how to plan and pack appropriately according to the weather forecast
+### User Story
+AS an avid Maritime Traveller this USER needs to be able to know how to plan and pack appropriately according to the ever-changing weather forecast directly for the Maritimes
 
-***Acceptance Criteria***
+## Acceptance Criteria
 
-User Story
+WHEN the USER opens the site 
 
-As someone who often travels across the Maritimes for work the USER needs to be able to know how to plan and pack appropriately according to the weather forecast
+THEN a default city will display with including date, time, temperature, pressure and humidity
 
-WHEN the USER opens the site a default city will display with including date, time, and temperature
+WHEN the USER scrolls down 
 
-ALSO should display the next 5 day forecast for that city with a gif as background that is equal to the general weather forecast at the current time
+THEN displayed is the Hourly Forecast showing a weather icon matching the general weather from now until 5 hours later
 
-THEN the USER can type in a city and change the display based on the weather in the city the user searched
+WHEN the user scrolls down again 
 
-WHEN the USER clicks on the city buttons 
+THEN the USER can type in any maritime city 
 
-THEN the site will search for those coordiantes automatically changing the site to display that city
+WHEN a new city is entered 
 
-# References
+THEN the site will search for those coordinates automatically changing the main display that city and it's weather data
 
-![Mock-up](assets/images/06-server-side-apis-homework-demo.png)
+WHEN the USER looks just below the search bar
 
-Pexels-[Blue Sky Background](www.pexels.com/search/blue%20sky/)
-![Alt text](<assets/images/sky background.jpg>)
+THEN displayed are 7 major cities in the Maritimes
 
-Web Dev Simplified-
-[Build a Weather App With JavaScript](https://www.youtube.com/watch?v=OE7kml0pigw)
+WHEN the USER clicks on each city button 
 
-Adding functional search bar-
-[How To Make A Search Bar Using HTML And CSS In 10 Just Minutes-](https://www.youtube.com/watch?v=9hnJsNIBq1g)
+THEN the main display will update according to the user city selection
 
-Google Fonts: [Sacramento](https://fonts.google.com/specimen/Sacramento?classification=Handwriting)
+WHEN the USER scrolls to the very bottom
 
-**City Buttons Coordinates**
+THEN the USER will see the next 3 day forecast for the corresponding city in the main display
+
+### City Buttons Coordinates
 
 Reference-Google
 
@@ -56,7 +55,7 @@ Charlottetown, PEI-46.2382° N, 63.1311° W
 
 Quebec City, QC-46.8131° N, 71.2075° W
 
-**Site Design**
+### Site Design
 
 ![Alt text](assets/images/sitedesign.png)
 
@@ -81,3 +80,17 @@ W3Schools-[Glowing Text Reference](https://www.w3schools.com/howto/howto_css_glo
   }
 }
 ```
+### References
+
+![Mock-up](assets/images/06-server-side-apis-homework-demo.png)
+
+Pexels-[Blue Sky Background](www.pexels.com/search/blue%20sky/)
+![Alt text](<assets/images/sky background.jpg>)
+
+Web Dev Simplified-
+[Build a Weather App With JavaScript](https://www.youtube.com/watch?v=OE7kml0pigw)
+
+Adding functional search bar-
+[How To Make A Search Bar Using HTML And CSS In 10 Just Minutes-](https://www.youtube.com/watch?v=9hnJsNIBq1g)
+
+Google Fonts: [Sacramento](https://fonts.google.com/specimen/Sacramento?classification=Handwriting)

@@ -1,15 +1,16 @@
 // API call
-let queryUrl = "https://api.openweathermap.org/data/2.5/onecall?";
+const queryUrl = "https://api.openweathermap.org/data/2.5/onecall?";
+const apiKey = "appid=dbb76c5d98d5dbafcb94441c6a10236e";
 let lat = "lat=65.8322&";
 let lon = "lon=45.5330&";
 let apiOptions = "units=metric&exclude=minutely,alerts&";
-let apiKey = "appid=dbb76c5d98d5dbafcb94441c6a10236e";
 let file = queryUrl + lat + lon + apiOptions + apiKey;
 
+
+//Fetch main weather display data
 fetch(file)
   .then((response) => response.json())
   .then((data) => {
-    // Weather main data
     let main = data.current.weather[0].main;
     let description = data.current.weather[0].description;
     let temp = Math.round(data.current.temp);
@@ -22,21 +23,6 @@ fetch(file)
     document.getElementById("wrapper-pressure").innerHTML = pressure;
     document.getElementById("wrapper-humidity").innerHTML = humidity;
     document.getElementById("wrapper-name").innerHTML = name;
-
-    // Weather hourly data
-    let hourNow = data.hourly[0].temp;
-    let hour1 = data.hourly[1].temp;
-    let hour2 = data.hourly[2].temp;
-    let hour3 = data.hourly[3].temp;
-    let hour4 = data.hourly[4].temp;
-    let hour5 = data.hourly[5].temp;
-
-    document.getElementById("wrapper-hour-now").innerHTML = hourNow + "°";
-    document.getElementById("wrapper-hour1").innerHTML = hour1 + "°";
-    document.getElementById("wrapper-hour2").innerHTML = hour2 + "°";
-    document.getElementById("wrapper-hour3").innerHTML = hour3 + "°";
-    document.getElementById("wrapper-hour4").innerHTML = hour4 + "°";
-    document.getElementById("wrapper-hour5").innerHTML = hour5 + "°";
 
     // Time to am/pm 12 hour clock
     let timeNow = new Date();
@@ -84,8 +70,8 @@ fetch(file)
     document.getElementById("wrapper-hour5").innerHTML = hourlyTemps[5] + "°";
 
     // Icons
-    let iconBaseUrl = "https://openweathermap.org/img/wn/";
-    let iconFormat = ".webp";
+    const iconBaseUrl = "https://openweathermap.org/img/wn/";
+    const iconFormat = ".webp";
 
     // Today
     let iconCodeToday = data.current.weather[0].icon;
@@ -107,32 +93,32 @@ fetch(file)
     // Hour now
     let iconHourNow = data.hourly[0].weather[0].icon;
     let iconFullyUrlHourNow = iconBaseUrl + iconHourNow + iconFormat;
-    document.getElementById("wrapper-icon-hour-now").src = iconFullyUrlHourNow;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHourNow;
 
     // Hour1
     let iconHour1 = data.hourly[1].weather[0].icon;
     let iconFullyUrlHour1 = iconBaseUrl + iconHour1 + iconFormat;
-    document.getElementById("wrapper-icon-hour1").src = iconFullyUrlHour1;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHour1;
 
     // Hour2
     let iconHour2 = data.hourly[2].weather[0].icon;
     let iconFullyUrlHour2 = iconBaseUrl + iconHour2 + iconFormat;
-    document.getElementById("wrapper-icon-hour2").src = iconFullyUrlHour2;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHour2;
 
     // Hour3
     let iconHour3 = data.hourly[3].weather[0].icon;
     let iconFullyUrlHour3 = iconBaseUrl + iconHour3 + iconFormat;
-    document.getElementById("wrapper-icon-hour3").src = iconFullyUrlHour3;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHour3;
 
     // Hour4
     let iconHour4 = data.hourly[4].weather[0].icon;
     let iconFullyUrlHour4 = iconBaseUrl + iconHour4 + iconFormat;
-    document.getElementById("wrapper-icon-hour4").src = iconFullyUrlHour4;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHour4;
 
     // Hour5
     let iconHour5 = data.hourly[5].weather[0].icon;
     let iconFullyUrlHour5 = iconBaseUrl + iconHour5 + iconFormat;
-    document.getElementById("wrapper-icon-hour5").src = iconFullyUrlHour5;
+    document.getElementById("wrapper-icon").src = iconFullyUrlHour5;
 
     // Backgrounds
 
@@ -200,6 +186,7 @@ function fetchWeatherData(latitude, longitude, city) {
       let temp = Math.round(data.current.temp);
       let pressure = data.current.pressure;
       let humidity = data.current.humidity;
+      let iconCode = data.current.weather[0].icon; // Get the icon code
 
       // Update the HTML elements with the new weather data
       document.getElementById("wrapper-description").innerHTML = description;
@@ -209,7 +196,6 @@ function fetchWeatherData(latitude, longitude, city) {
       document.getElementById("wrapper-name").innerHTML = city;
 
       // Backgrounds based on weather condition code (icon)
-      let iconCode = data.current.weather[0].icon;
       updateBackgroundImage(getBackgroundImageURL(iconCode));
 
       // Update background on the main section based on current weather
@@ -227,18 +213,13 @@ function getBackgroundImageURL(iconCode) {
   return `${iconBaseUrl}${iconCode}${iconFormat}`;
 }
 
-// Function to update background image
-function updateBackgroundImage(imageUrl) {
-  document.getElementById("wrapper-bg").style.backgroundImage = `url('${imageUrl}')`;
-}
-
 // Function to update main background based on weather condition
 function updateMainBackground(main) {
   // Backgrounds
   switch (main) {
     case "Snow":
       document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
+        "url('https://mdbgo.io/ascensus/mdb-advanced')";
       break;
     case "Clouds":
       document.getElementById("wrapper-bg").style.backgroundImage =
@@ -267,61 +248,92 @@ function updateMainBackground(main) {
   }
 }
 
-
 // Event listeners for city buttons
 document.getElementById("btnHampton").addEventListener("click", function () {
   fetchWeatherData(45.527, 65.8418, "Hampton");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnFredericton").addEventListener("click", function () {
   fetchWeatherData(45.9636, 66.6431, "Fredericton");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnMoncton").addEventListener("click", function () {
   fetchWeatherData(46.0878, 64.7782, "Moncton");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnStJohns").addEventListener("click", function () {
   fetchWeatherData(47.5675, 52.7076, "St.Johns");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnHalifax").addEventListener("click", function () {
   fetchWeatherData(44.6488, 63.5752, "Halifax");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnGreenwood").addEventListener("click", function () {
   fetchWeatherData(44.9717, 64.9341, "Greenwood");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
 document.getElementById("btnCharlottetown").addEventListener("click", function () {
   fetchWeatherData(46.2382, 63.1311, "Charlottetown");
+  updateBackgroundImage(getBackgroundImageURL(iconCode));
 });
 
-  function displayCurrentDateTime() {
-    // Create a new Date object to get the current date and time
-    const currentDate = new Date();
-  
-    // Get the day of the week
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const dayOfWeek = daysOfWeek[currentDate.getDay()];
-  
-    // Format date, hours, and minutes
-    const formattedDate = currentDate.toLocaleDateString();
-    let hours = currentDate.getHours();
-    const amPm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    const minutes = currentDate.getMinutes();
-    const formattedTime = `${hours}:${minutes} ${amPm}`;
-  
-    // Display the formatted date, day of the week, and time in a specific container
-    const dateTimeContainer = document.getElementById('datetime-container');
-    const dateTimeElement = document.getElementById('date-time');
-  
-    dateTimeElement.textContent = `${dayOfWeek}, ${formattedDate} ${formattedTime}`;
+function displayCurrentDateTime() {
+  // Create a new Date object to get the current date and time
+  const currentDate = new Date();
+
+  // Get the day of the week
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayOfWeek = daysOfWeek[currentDate.getDay()];
+
+  // Format date, hours, and minutes
+  const formattedDate = currentDate.toLocaleDateString();
+  let hours = currentDate.getHours();
+  const amPm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  const minutes = currentDate.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const formattedTime = `${hours}:${formattedMinutes} ${amPm}`;
+
+  // Display the formatted date, day of the week, and time in a specific container
+  const dateTimeContainer = document.getElementById('datetime-container');
+  const dateTimeElement = document.getElementById('date-time');
+
+  dateTimeElement.textContent = `${dayOfWeek}, ${formattedDate} ${formattedTime}`;
+}
+
+// Call the function when the page is loaded
+window.onload = function() {
+  displayCurrentDateTime();
+  setInterval(displayCurrentDateTime, 60000); // Update every 1 minute
+};
+
+// Event listener for the search button
+document.getElementById("search-btn").addEventListener("click", function () {
+  // Get the user-input city from the input field
+  const userInputCity = document.getElementById("city-input").value;
+
+  // Fetch weather data for the entered city
+  fetchWeatherForCity(userInputCity);
+});
+
+// Function to fetch weather data for a specific city
+function fetchWeatherForCity(city) {
+  // Check if the entered city is in the coordinates list
+  if (cityCoordinates.hasOwnProperty(city)) {
+    const { latitude, longitude } = cityCoordinates[city];
+
+    // Fetch weather data for the specified city
+    fetchWeatherData(latitude, longitude, city);
+  } else {
+    // Handle the case when the entered city is not in the coordinates list
+    console.error("Invalid city entered:", city);
+    // Display a message to the user or handle the error accordingly
   }
-  
-  // Call the function when the page is loaded
-  window.onload = function() {
-    displayCurrentDateTime();
-    setInterval(displayCurrentDateTime, 60000); // Update every 1 minute
-  };
+}
