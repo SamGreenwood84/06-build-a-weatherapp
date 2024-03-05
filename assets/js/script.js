@@ -1,4 +1,4 @@
-// API call
+// API Call and Main Weather Display
 const queryUrl = "https://api.openweathermap.org/data/2.5/onecall?";
 const apiKey = "appid=dbb76c5d98d5dbafcb94441c6a10236e";
 let lat = "lat=65.8322&";
@@ -6,11 +6,11 @@ let lon = "lon=45.5330&";
 let apiOptions = "units=metric&exclude=minutely,alerts&";
 let file = queryUrl + lat + lon + apiOptions + apiKey;
 
-
-//Fetch main weather display data
+// Fetch main weather display data
 fetch(file)
   .then((response) => response.json())
   .then((data) => {
+    // Now data is defined within this scope
     let main = data.current.weather[0].main;
     let description = data.current.weather[0].description;
     let temp = Math.round(data.current.temp);
@@ -23,6 +23,20 @@ fetch(file)
     document.getElementById("wrapper-pressure").innerHTML = pressure;
     document.getElementById("wrapper-humidity").innerHTML = humidity;
     document.getElementById("wrapper-name").innerHTML = name;
+
+    // Weather daily data & Weather hourly data
+    let hourlyTemps = data.hourly.map((hour) => Math.round(hour.temp));
+
+    document.getElementById("wrapper-hour-now").innerHTML = hourlyTemps[0] + "°";
+    document.getElementById("wrapper-hour1").innerHTML = hourlyTemps[1] + "°";
+    document.getElementById("wrapper-hour2").innerHTML = hourlyTemps[2] + "°";
+    document.getElementById("wrapper-hour3").innerHTML = hourlyTemps[3] + "°";
+    document.getElementById("wrapper-hour4").innerHTML = hourlyTemps[4] + "°";
+    document.getElementById("wrapper-hour5").innerHTML = hourlyTemps[5] + "°";
+  })
+  .catch((error) => {
+    console.error("Error fetching weather data:", error);
+  });
 
     // Time to am/pm 12 hour clock
     let timeNow = new Date();
@@ -52,27 +66,22 @@ fetch(file)
     document.getElementById("wrapper-time4").innerHTML =
       formatTime(time4) + " " + amPm4;
     document.getElementById("wrapper-time5").innerHTML =
-      formatTime(time5) + " " + amPm5;
+      formatTime(time5) + " " + amPm5;;
 
     // Helper function to format time without leading zero
     function formatTime(time) {
       return time >= 10 ? time : "0" + time;
     }
 
-    // Weather daily data & Weather hourly data
-    let hourlyTemps = data.hourly.map((hour) => Math.round(hour.temp));
+  // Function to get background image URL based on weather condition code
+  function getIconURL(iconCode) {
+  const iconBaseUrl = "https://openweathermap.org/img/wn/";
+  const iconFormat = ".webp";
+  return `${iconBaseUrl}${iconCode}${iconFormat}`;
+}
 
-    document.getElementById("wrapper-hour-now").innerHTML = hourlyTemps[0] + "°";
-    document.getElementById("wrapper-hour1").innerHTML = hourlyTemps[1] + "°";
-    document.getElementById("wrapper-hour2").innerHTML = hourlyTemps[2] + "°";
-    document.getElementById("wrapper-hour3").innerHTML = hourlyTemps[3] + "°";
-    document.getElementById("wrapper-hour4").innerHTML = hourlyTemps[4] + "°";
-    document.getElementById("wrapper-hour5").innerHTML = hourlyTemps[5] + "°";
-
-    // Icons
-    const iconBaseUrl = "https://openweathermap.org/img/wn/";
-    const iconFormat = ".webp";
-
+    //3 Day Forecast Icons
+    
     // Today
     let iconCodeToday = data.current.weather[0].icon;
     let iconFullyUrlToday = iconBaseUrl + iconCodeToday + iconFormat;
@@ -88,77 +97,62 @@ fetch(file)
     let iconFullyUrlDAT = iconBaseUrl + iconCodeDAT + iconFormat;
     document.getElementById("wrapper-icon-dAT").src = iconFullyUrlDAT;
 
-    // Icons hourly
+    // Hourly Forecast Icons
 
     // Hour now
     let iconHourNow = data.hourly[0].weather[0].icon;
     let iconFullyUrlHourNow = iconBaseUrl + iconHourNow + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHourNow;
+    document.getElementById("wrapper-icon-hourNow").src = iconFullyUrlHourNow;
 
     // Hour1
     let iconHour1 = data.hourly[1].weather[0].icon;
     let iconFullyUrlHour1 = iconBaseUrl + iconHour1 + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHour1;
+    document.getElementById("wrapper-icon-hour1").src = iconFullyUrlHour1;
 
     // Hour2
     let iconHour2 = data.hourly[2].weather[0].icon;
     let iconFullyUrlHour2 = iconBaseUrl + iconHour2 + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHour2;
+    document.getElementById("wrapper-icon-hour2").src = iconFullyUrlHour2;
 
     // Hour3
     let iconHour3 = data.hourly[3].weather[0].icon;
     let iconFullyUrlHour3 = iconBaseUrl + iconHour3 + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHour3;
+    document.getElementById("wrapper-icon-hour3").src = iconFullyUrlHour3;
 
     // Hour4
     let iconHour4 = data.hourly[4].weather[0].icon;
     let iconFullyUrlHour4 = iconBaseUrl + iconHour4 + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHour4;
+    document.getElementById("wrapper-icon-hour4").src = iconFullyUrlHour4;
 
     // Hour5
     let iconHour5 = data.hourly[5].weather[0].icon;
     let iconFullyUrlHour5 = iconBaseUrl + iconHour5 + iconFormat;
-    document.getElementById("wrapper-icon").src = iconFullyUrlHour5;
+    document.getElementById("wrapper-icon-hour5").src = iconFullyUrlHour5;
 
-    // Backgrounds
+   // Function to update main background based on weather condition
+function updateMainBackground(main) {
+  const backgroundMappings = {
+    "Snow": "snow.gif",
+    "Clouds": "clouds.gif",
+    "Fog": "fog.gif",
+    "Rain": "rain.gif",
+    "Clear": "clear.gif",
+    "Thunderstorm": "thunderstorm.gif",
+    "default": "clear.gif",
+  };
 
-    switch (main) {
-      case "Snow":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
-        break;
-      case "Clouds":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-        break;
-      case "Fog":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
-        break;
-      case "Rain":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-        break;
-      case "Clear":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-        break;
-      case "Thunderstorm":
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
-        break;
-      default:
-        document.getElementById("wrapper-bg").style.backgroundImage =
-          "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-        break;
-    }
-  })
-  .catch((error) => {
-    console.error("Error fetching weather data:", error);
-  });
+  const backgroundImageURL = `https://mdbgo.io/ascensus/mdb-advanced/img/${backgroundMappings[main] || backgroundMappings["default"]}`;
+  updateBackgroundImage(backgroundImageURL);
+}
+
 // Function to update background image
 function updateBackgroundImage(imageUrl) {
   document.getElementById("wrapper-bg").style.backgroundImage = `url('${imageUrl}')`;
+}
+
+// Handle errors during the API call
+function handleWeatherError(error) {
+  console.error("Error fetching weather data:", error);
 }
 
 // Define the city coordinates
@@ -206,83 +200,20 @@ function fetchWeatherData(latitude, longitude, city) {
     });
 }
 
-// Function to get background image URL based on weather condition code
-function getBackgroundImageURL(iconCode) {
-  const iconBaseUrl = "https://openweathermap.org/img/wn/";
-  const iconFormat = ".webp";
-  return `${iconBaseUrl}${iconCode}${iconFormat}`;
-}
-
-// Function to update main background based on weather condition
-function updateMainBackground(main) {
-  // Backgrounds
-  switch (main) {
-    case "Snow":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced')";
-      break;
-    case "Clouds":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-      break;
-    case "Fog":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
-      break;
-    case "Rain":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-      break;
-    case "Clear":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-      break;
-    case "Thunderstorm":
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
-      break;
-    default:
-      document.getElementById("wrapper-bg").style.backgroundImage =
-        "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-      break;
-  }
-}
-
 // Event listeners for city buttons
-document.getElementById("btnHampton").addEventListener("click", function () {
-  fetchWeatherData(45.527, 65.8418, "Hampton");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
+addCityButtonEventListener("btnHampton", 45.527, 65.8418, "Hampton");
+addCityButtonEventListener("btnFredericton", 45.9636, 66.6431, "Fredericton");
+addCityButtonEventListener("btnMoncton", 46.0878, 64.7782, "Moncton");
+addCityButtonEventListener("btnStJohns", 47.5675, 52.7076, "St.Johns");
+addCityButtonEventListener("btnHalifax", 44.6488, 63.5752, "Halifax");
+addCityButtonEventListener("btnGreenwood", 44.9717, 64.9341, "Greenwood");
+addCityButtonEventListener("btnCharlottetown", 46.2382, 63.1311, "Charlottetown");
 
-document.getElementById("btnFredericton").addEventListener("click", function () {
-  fetchWeatherData(45.9636, 66.6431, "Fredericton");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
-
-document.getElementById("btnMoncton").addEventListener("click", function () {
-  fetchWeatherData(46.0878, 64.7782, "Moncton");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
-
-document.getElementById("btnStJohns").addEventListener("click", function () {
-  fetchWeatherData(47.5675, 52.7076, "St.Johns");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
-
-document.getElementById("btnHalifax").addEventListener("click", function () {
-  fetchWeatherData(44.6488, 63.5752, "Halifax");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
-
-document.getElementById("btnGreenwood").addEventListener("click", function () {
-  fetchWeatherData(44.9717, 64.9341, "Greenwood");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
-
-document.getElementById("btnCharlottetown").addEventListener("click", function () {
-  fetchWeatherData(46.2382, 63.1311, "Charlottetown");
-  updateBackgroundImage(getBackgroundImageURL(iconCode));
-});
+function addCityButtonEventListener(cityId, latitude, longitude, cityName) {
+  document.getElementById(cityId).addEventListener("click", function () {
+    fetchWeatherData(latitude, longitude, cityName);
+  });
+}
 
 function displayCurrentDateTime() {
   // Create a new Date object to get the current date and time
