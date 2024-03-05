@@ -1,5 +1,5 @@
 // API Call and Main Weather Display
-const queryUrl = "https://api.openweathermap.org/data/2.5/onecall?";
+const queryUrl = "https://api.openweathermap.org/data/2.5/forecast?";
 const apiKey = "appid=dbb76c5d98d5dbafcb94441c6a10236e";
 let lat = "lat=65.8322&";
 let lon = "lon=45.5330&";
@@ -11,11 +11,11 @@ fetch(file)
   .then((response) => response.json())
   .then((data) => {
     // Now data is defined within this scope
-    let main = data.current.weather[0].main;
-    let description = data.current.weather[0].description;
-    let temp = Math.round(data.current.temp);
-    let pressure = data.current.pressure;
-    let humidity = data.current.humidity;
+    let main = data.list[0].weather[0].main;
+    let description = data.list[0].weather[0].description;
+    let temp = Math.round(data.list[0].main.temp);
+    let pressure = data.list[0].main.pressure;
+    let humidity = data.list[0].main.humidity;
     let name = "Hampton";
 
     document.getElementById("wrapper-description").innerHTML = description;
@@ -24,8 +24,8 @@ fetch(file)
     document.getElementById("wrapper-humidity").innerHTML = humidity;
     document.getElementById("wrapper-name").innerHTML = name;
 
-    // Weather daily data & Weather hourly data
-    let hourlyTemps = data.hourly.map((hour) => Math.round(hour.temp));
+    // Weather hourly data
+    let hourlyTemps = data.list.slice(0, 6).map((hour) => Math.round(hour.main.temp));
 
     document.getElementById("wrapper-hour-now").innerHTML = hourlyTemps[0] + "°";
     document.getElementById("wrapper-hour1").innerHTML = hourlyTemps[1] + "°";
@@ -80,54 +80,52 @@ fetch(file)
   return `${iconBaseUrl}${iconCode}${iconFormat}`;
 }
 
-    //3 Day Forecast Icons
-    
-    // Today
-    let iconCodeToday = data.current.weather[0].icon;
-    let iconFullyUrlToday = iconBaseUrl + iconCodeToday + iconFormat;
-    document.getElementById("wrapper-icon-today").src = iconFullyUrlToday;
+// 5 Day Forecast Icons
+// Day 1
+let iconCodeDay1 = data.list[0].weather[0].icon;
+let iconFullyUrlDay1 = getIconURL(iconCodeDay1);
+document.getElementById("wrapper-icon-day1").src = iconFullyUrlDay1;
 
-    // Tomorrow
-    let iconCodeTomorrow = data.daily[0].weather[0].icon;
-    let iconFullyUrlTomorrow = iconBaseUrl + iconCodeTomorrow + iconFormat;
-    document.getElementById("wrapper-icon-tomorrow").src = iconFullyUrlTomorrow;
+// Day 2
+let iconCodeDay2 = data.list[8].weather[0].icon;
+let iconFullyUrlDay2 = getIconURL(iconCodeDay2);
+document.getElementById("wrapper-icon-day2").src = iconFullyUrlDay2;
 
-    // Day after tomorrow
-    let iconCodeDAT = data.daily[1].weather[0].icon;
-    let iconFullyUrlDAT = iconBaseUrl + iconCodeDAT + iconFormat;
-    document.getElementById("wrapper-icon-dAT").src = iconFullyUrlDAT;
+// Day 3
+let iconCodeDay3 = data.list[16].weather[0].icon;
+let iconFullyUrlDay3 = getIconURL(iconCodeDay3);
+document.getElementById("wrapper-icon-day3").src = iconFullyUrlDay3;
 
-    // Hourly Forecast Icons
+// Day 4
+let iconCodeDay4 = data.list[24].weather[0].icon;
+let iconFullyUrlDay4 = getIconURL(iconCodeDay4);
+document.getElementById("wrapper-icon-day4").src = iconFullyUrlDay4;
 
-    // Hour now
-    let iconHourNow = data.hourly[0].weather[0].icon;
-    let iconFullyUrlHourNow = iconBaseUrl + iconHourNow + iconFormat;
-    document.getElementById("wrapper-icon-hourNow").src = iconFullyUrlHourNow;
+// Day 5
+let iconCodeDay5 = data.list[32].weather[0].icon;
+let iconFullyUrlDay5 = getIconURL(iconCodeDay5);
+document.getElementById("wrapper-icon-day5").src = iconFullyUrlDay5;
 
-    // Hour1
-    let iconHour1 = data.hourly[1].weather[0].icon;
-    let iconFullyUrlHour1 = iconBaseUrl + iconHour1 + iconFormat;
-    document.getElementById("wrapper-icon-hour1").src = iconFullyUrlHour1;
+// Hourly Forecast Icons
+// Hour now
+let iconHourNow = data.list[0].weather[0].icon;
+let iconFullyUrlHourNow = getIconURL(iconHourNow);
+document.getElementById("wrapper-icon-hourNow").src = iconFullyUrlHourNow;
 
-    // Hour2
-    let iconHour2 = data.hourly[2].weather[0].icon;
-    let iconFullyUrlHour2 = iconBaseUrl + iconHour2 + iconFormat;
-    document.getElementById("wrapper-icon-hour2").src = iconFullyUrlHour2;
+// Hour1
+let iconHour1 = data.list[1].weather[0].icon;
+let iconFullyUrlHour1 = getIconURL(iconHour1);
+document.getElementById("wrapper-icon-hour1").src = iconFullyUrlHour1;
 
-    // Hour3
-    let iconHour3 = data.hourly[3].weather[0].icon;
-    let iconFullyUrlHour3 = iconBaseUrl + iconHour3 + iconFormat;
-    document.getElementById("wrapper-icon-hour3").src = iconFullyUrlHour3;
+// Hour2
+let iconHour2 = data.list[2].weather[0].icon;
+let iconFullyUrlHour2 = getIconURL(iconHour2);
+document.getElementById("wrapper-icon-hour2").src = iconFullyUrlHour2;
 
-    // Hour4
-    let iconHour4 = data.hourly[4].weather[0].icon;
-    let iconFullyUrlHour4 = iconBaseUrl + iconHour4 + iconFormat;
-    document.getElementById("wrapper-icon-hour4").src = iconFullyUrlHour4;
-
-    // Hour5
-    let iconHour5 = data.hourly[5].weather[0].icon;
-    let iconFullyUrlHour5 = iconBaseUrl + iconHour5 + iconFormat;
-    document.getElementById("wrapper-icon-hour5").src = iconFullyUrlHour5;
+// Hour3
+let iconHour3 = data.list[3].weather[0].icon;
+let iconFullyUrlHour3 = getIconURL(iconHour3);
+document.getElementById("wrapper-icon-hour3").src = iconFullyUrlHour3;
 
    // Function to update main background based on weather condition
 function updateMainBackground(main) {

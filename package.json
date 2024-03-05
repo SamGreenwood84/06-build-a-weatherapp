@@ -1,0 +1,12 @@
+{
+  "name": "06-challenge-weather-dashboard",
+  "version": "1.0.0",
+  "description": "## Server-Side APIs Challenge: Weather Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
