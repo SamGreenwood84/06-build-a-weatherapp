@@ -224,6 +224,10 @@ function displayCurrentDateTime() {
   dateTimeElement.textContent = `${dayOfWeek}, ${formattedDate} ${formattedTime}`;
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  displayCurrentDateTime();
+});
+
 // Call the function when the page is loaded
 window.onload = function() {
   displayCurrentDateTime();
