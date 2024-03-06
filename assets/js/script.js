@@ -273,10 +273,16 @@ function fetchWeatherData(latitude, longitude, city) {
 }
 
 function handleCityButtonClick(city) {
+  console.log(`Button clicked for ${city}`);
+
   // Check if the city coordinates are available
   if (cityCoordinates[city]) {
     const { latitude, longitude } = cityCoordinates[city];
-    
+    console.log(`Coordinates for ${city}: Lat ${latitude}, Lon ${longitude}`);
+
+    // Update the search input with the city name
+    document.getElementById("searchInput").value = city;
+
     // Fetch weather data for the specified city
     fetchWeatherData(latitude, longitude, city);
   } else {
@@ -286,31 +292,31 @@ function handleCityButtonClick(city) {
 
 // Event listeners for city buttons
 document.getElementById("btnHampton").addEventListener("click", function () {
-  fetchButtonData("Hampton");
+  handleCityButtonClick("Hampton");
 });
 
 document.getElementById("btnFredericton").addEventListener("click", function () {
-  fetchButtonData("Fredericton");
+  handleCityButtonClick("Fredericton");
 });
 
 document.getElementById("btnMoncton").addEventListener("click", function () {
-  fetchButtonData("Moncton");
+  handleCityButtonClick("Moncton");
 });
 
 document.getElementById("btnStJohns").addEventListener("click", function () {
-  fetchButtonData("St.Johns");
+  handleCityButtonClick("St.Johns");
 });
 
 document.getElementById("btnHalifax").addEventListener("click", function () {
-  fetchButtonData("Halifax");
+  handleCityButtonClick("Halifax");
 });
 
 document.getElementById("btnGreenwood").addEventListener("click", function () {
-  fetchButtonData("Greenwood");
+  handleCityButtonClick("Greenwood");
 });
 
 document.getElementById("btnCharlottetown").addEventListener("click", function () {
-  fetchButtonData("Charlottetown");
+  handleCityButtonClick("Charlottetown");
 });
 
 // Search button event listener
