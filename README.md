@@ -7,13 +7,17 @@ AS an avid Maritime Traveller this USER needs to be able to know how to plan and
 
 ## Acceptance Criteria
 
-WHEN the USER opens the site 
+WHEN the USER opens the application
 
-THEN a default city will display with including date, time, temperature, pressure and humidity
+THEN the USER will be asked to Allow the app to use their current location
+
+WHEN the USER clicks allow 
+
+THEN the data for their current location will display with including a message "Outside it's..." and the current weather description, temperature, pressure and humidity, day of the week, date and time
 
 WHEN the USER scrolls down 
 
-THEN displayed is the Hourly Forecast showing a weather icon matching the general weather from now until 5 hours later
+THEN displayed is the Hourly Forecast for the next 3 hours with the time and temperature
 
 WHEN the user scrolls down again 
 
@@ -21,7 +25,7 @@ THEN the USER can type in any maritime city
 
 WHEN a new city is entered 
 
-THEN the site will search for those coordinates automatically changing the main display that city and it's weather data
+THEN the app will search for those coordinates and update the display accordingly
 
 WHEN the USER looks just below the search bar
 
@@ -29,11 +33,11 @@ THEN displayed are 7 major cities in the Maritimes
 
 WHEN the USER clicks on each city button 
 
-THEN the main display will update according to the user city selection
+THEN the app will update according to the user city selection
 
 WHEN the USER scrolls to the very bottom
 
-THEN the USER will see the next 3 day forecast for the corresponding city in the main display
+THEN the USER will see the next 3 day forecast for the corresponding city displaying the day of the week and the temperature
 
 ### City Buttons Coordinates
 
